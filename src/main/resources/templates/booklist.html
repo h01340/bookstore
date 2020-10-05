@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<head>
+    <title>Books</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<h5 th:inline="text"><i>Hello [[${#httpServletRequest.remoteUser}]]!</i></h5>
+	<h3>Book list</h3>
+	    <table>
+		<tr>
+		    <th>Author</th>
+		    <th>Title</th>
+		    <th>Category</th>
+		</tr>  
+    	<tr th:each = "book : ${books}">
+    		<td th:text="${book.author}"></td>
+    		<td th:text="${book.title}"></td>
+    		<td th:text="${book.category.name}"></td>
+ 			<td sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
+ 			<td sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>    		
+    	</tr>    		
+     </table>
+     <br><a href="/add">Add a new book</a><br><br>
+	 	 
+	 <form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out"/>
+	</form>	
+</body>
+</html>
