@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h1>Edit the book informataion</h1>
+    <form action="#" th:object="${editBook}" th:action="@{/saveEditedBook}" method="post">
+		<!-- <input type="hidden" id="id" th:field="*{id}" /> -->
+			<input type="text" id="id" th:field="*{id}" readonly/>
+		  	<div>
+		  		<label>Title</label>
+	  			<input type="text" th:field="*{title}" />
+				<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Error</div>
+		
+  			</div>
+			
+			<div>
+		  		<label>Author</label>
+		  		<input type="text" th:field="*{author}" />
+				<div th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Error</div>
+		
+			</div>
+
+      <div>
+		  		<label>Publishing year</label>
+		  		<input type="text" th:field="*{yearOfPublish}" />
+				<div th:if="${#fields.hasErrors('yearOfPublish')}" th:errors="*{yearOfPublish}">Error</div>
+		
+			</div>
+			
+			<input type="submit" value="Save"></input>
+		</form>
+    <a href="/booklist">Back to main page</a>
+  </body>
+</html>

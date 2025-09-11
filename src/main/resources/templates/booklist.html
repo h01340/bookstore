@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Booklist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h1>All my books</h1>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+      </tr>
+      <tr th:each="kirja : ${kirjat}">
+        <td th:text="${kirja.id}"></td>
+        <td th:text="${kirja.title}"></td>
+        <td th:text="${kirja.author}"></td>
+        <td><a th:href="@{/editBook/{id}(id=${kirja.id})}">Muokkaa</a></td>
+        <td><a th:href="@{/deleteBook/{id}(id=${kirja.id})}">Poista</a></td>
+      </tr>
+    </table>
+    <a href="/add">Add book</a><br />
+    <a href="/main">Back to main page</a>
+
+    <br /><br />
+    <p><a href="/initDB">Insert some demo data to database</a></p>
+  </body>
+</html>
