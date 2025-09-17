@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.validation.Valid;
 import s25.bookstore.model.Book;
 import s25.bookstore.model.BookRepository;
+import s25.bookstore.model.CategoryRepository;
 import s25.bookstore.service.InitDB;
 
 @Controller
@@ -22,10 +23,13 @@ public class BookController {
 
     // https://docs.spring.io/spring-boot/reference/using/spring-beans-and-dependency-injection.html
     private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
     private final InitDB initDB;
 
-    public BookController(BookRepository bookRepository, InitDB initDB) {
+    public BookController(BookRepository bookRepository,
+            CategoryRepository categoryRepository, InitDB initDB) {
         this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
         this.initDB = initDB;
     }
 
@@ -58,10 +62,11 @@ public class BookController {
     @GetMapping("/add")
     public String openAddBookForm(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute(("categories"), categoryRepository.findAll());
         return "addBook";
     }
 
-    // save new book
+    // save a new book
     @PostMapping("/saveBook")
     public String savebook(Book book) {
         log.info("CONTROLLER: Save book: " + book);
@@ -82,24 +87,16 @@ public class BookController {
     public String editBook(@PathVariable Long id, Model model) {
         log.info("Edit book which id = " + id);
         model.addAttribute("editBook", bookRepository.findById(id));
+        model.addAttribute(("categories"), categoryRepository.findAll());
 
         return "editBookWithValidation";
     }
 
-    /*
-     * @PostMapping("/saveEditedBook")
-     * public String saveEditedBook(Book book) {
-     * log.info("CONTROLLER: Save edited the book " + book);
-     * bookRepository.save(book);
-     * return "redirect:/booklist";
-     * }
-     */
-
     @PostMapping("/saveEditedBook")
     public String saveEditedBook(@Valid @ModelAttribute("editBook") Book book,
             BindingResult bindingResult, Model model) {
-        log.info("CONTROLLER: Save edited the book - check validation of book: " +
-                book);
+        log.info("CONTROLLER: Save edited the book - check validation of book: " + book);
+
         if (bindingResult.hasErrors()) {
             log.error("some validation error happened, book: " + book);
             model.addAttribute("editBook", book);
@@ -110,5 +107,14 @@ public class BookController {
         bookRepository.save(book);
         return "redirect:/booklist";
     }
+
+    /*
+     * @PostMapping("/saveEditedBook")
+     * public String saveEditedBook(Book book) {
+     * log.info("CONTROLLER: Save edited the book " + book);
+     * bookRepository.save(book);
+     * return "redirect:/booklist";
+     * }
+     */
 
 }
