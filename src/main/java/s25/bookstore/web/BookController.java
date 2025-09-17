@@ -14,7 +14,6 @@ import jakarta.validation.Valid;
 import s25.bookstore.model.Book;
 import s25.bookstore.model.BookRepository;
 import s25.bookstore.model.CategoryRepository;
-import s25.bookstore.service.InitDB;
 
 @Controller
 public class BookController {
@@ -24,31 +23,18 @@ public class BookController {
     // https://docs.spring.io/spring-boot/reference/using/spring-beans-and-dependency-injection.html
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
-    private final InitDB initDB;
 
     public BookController(BookRepository bookRepository,
-            CategoryRepository categoryRepository, InitDB initDB) {
+            CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
         this.categoryRepository = categoryRepository;
-        this.initDB = initDB;
+
     }
 
     @GetMapping(value = { "main", "/" })
     public String showMainPage() {
         log.info("showMainPage...");
         return "main";
-    }
-
-    // insert some demo data to database
-    @GetMapping("/initDB")
-    public String initializeDatabase() {
-        log.info("CONTROLLER: initialize db");
-        String ok = initDB.insertDemoData();
-        log.info(ok);
-        for (Book book : bookRepository.findAll()) {
-            log.info(book.toString());
-        }
-        return "redirect:/booklist";
     }
 
     @GetMapping("/booklist")
