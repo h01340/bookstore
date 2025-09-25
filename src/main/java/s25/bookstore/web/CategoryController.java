@@ -2,6 +2,9 @@ package s25.bookstore.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,7 @@ import s25.bookstore.model.Category;
 import s25.bookstore.model.CategoryRepository;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CategoryController {
@@ -37,6 +41,7 @@ public class CategoryController {
 
     @PostMapping("/saveCategory")
     public String saveCategory(Category category) {
+        log.info("save category " + category);
         categoryRepository.save(category);
         return "redirect:/categorylist";
 
@@ -44,6 +49,7 @@ public class CategoryController {
 
     @GetMapping("/deleteCategory/{id}")
     public String deleteCategory(@PathVariable Long id) {
+        log.info("delete category " + id);
         categoryRepository.deleteById(id);
         return "redirect:/categorylist";
 

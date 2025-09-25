@@ -86,7 +86,7 @@ public class BookController {
         if (bindingResult.hasErrors()) {
             log.error("some validation error happened, book: " + book);
             model.addAttribute("editBook", book);
-
+            model.addAttribute("categories", categoryRepository.findAll());
             return "editBookWithValidation";
         }
         log.info("tallenna kirja: " + book);

@@ -43,7 +43,7 @@ public class InitDB {
                     .save(new Book("Spring boot", "Spring Guru", 2023, categoryRepository.findByName("Scifi").get(0)));
             bookRepository.save(new Book("Spring boot", "Spring Guru", categoryRepository.findByName("Scifi").get(0)));
 
-            return "some books inserted";
+            return "some categories and books inserted";
         } catch (DataAccessException e) {
             log.error("Database error: " + e.getMessage());
             return "Error: cannot save data to db";

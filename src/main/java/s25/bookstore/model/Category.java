@@ -2,6 +2,8 @@ package s25.bookstore.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +21,7 @@ public class Category {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kategoria")
+    @JsonIgnore
     private List<Book> books;
 
     public Category() {
@@ -42,6 +45,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override

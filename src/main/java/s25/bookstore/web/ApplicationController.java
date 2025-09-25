@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import s25.bookstore.model.Book;
 import s25.bookstore.model.BookRepository;
+import s25.bookstore.model.Category;
 import s25.bookstore.model.CategoryRepository;
 import s25.bookstore.service.InitDB;
 
@@ -36,6 +37,11 @@ public class ApplicationController {
         for (Book book : bookRepository.findAll()) {
             log.info(book.toString());
         }
+
+        for (Category category : categoryRepository.findAll()) {
+            log.info(category.toString());
+        }
         return "redirect:/main";
     }
+
 }
