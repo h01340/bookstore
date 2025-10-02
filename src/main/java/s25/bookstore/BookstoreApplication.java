@@ -39,7 +39,7 @@ public class BookstoreApplication {
 			categoryRepository.save(new Category("Scifi"));
 
 			// lisätään pari kirjaa
-			Book book1 = new Book("Opi Spring Boottia", "Pelle Hermanni");
+			Book book1 = new Book("Opi Spring Boottia", "Minna");
 			Book book2 = new Book("Opi Spring Boottia, osa 2", "Pelle Hermanni");
 			Book book3 = new Book("Opi Spring Boottia, osa 3", "Pelle Hermanni",
 					categoryRepository.findByName("Scifi").get(0));
