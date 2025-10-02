@@ -21,7 +21,9 @@
     </table>
     <a href="/addCategory">Add category</a><br />
     <a href="/main">Back to main page</a>
-
+    <form th:action="@{/logout}" method="post">
+      <input type="submit" value="Sign Out" />
+    </form>
     <br /><br />
   </body>
 </html>

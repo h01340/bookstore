@@ -7,19 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
 import s25.bookstore.model.Book;
 import s25.bookstore.model.BookRepository;
-import s25.bookstore.model.CategoryRepository;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,12 +23,9 @@ public class RestBookController {
 
     // https://docs.spring.io/spring-boot/reference/using/spring-beans-and-dependency-injection.html
     private final BookRepository bookRepository;
-    private final CategoryRepository categoryRepository;
 
-    public RestBookController(BookRepository bookRepository,
-            CategoryRepository categoryRepository) {
+    public RestBookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.categoryRepository = categoryRepository;
 
     }
 
@@ -58,15 +48,17 @@ public class RestBookController {
 
     // edit existing car information
     @PutMapping("/books/{id}")
-    Book editCar(@RequestBody Book editedBook, @PathVariable Long id) {
+    public Book editCar(@RequestBody Book editedBook, @PathVariable Long id) {
         log.info("edit book " + editedBook);
         editedBook.setId(id);
         return bookRepository.save(editedBook);
     }
 
     @DeleteMapping("/books/{id}")
-    void deleteBook(@PathVariable Long id) {
+    // public void deleteBook(@PathVariable Long id) {
+    public List<Book> deleteBook(@PathVariable Long id) {
         bookRepository.deleteById(id);
+        return bookRepository.findAll();
     }
 
 }

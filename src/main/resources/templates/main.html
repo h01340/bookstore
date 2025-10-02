@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">  
   <head>
     <title>Book Database</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
 
   <body>
-    <p>Welcome to book application!</p>
+</form>
+
+    <p>Welcome <i><span sec:authentication="name"></span></i> to book application!</p>
     <p><a href="/booklist">Show all books</a></p>
     <p><a href="/add">Insert a new book</a></p>
     <br>
@@ -14,5 +16,9 @@
     <p><a href="/addCategory">Insert a new category</a></p>
     <br></br>
     <p><a href="/initDB">Insert some demo data to database</a></p>
+
+        <form th:action="@{/logout}" method="post">
+      <input type="submit" value="Sign Out" />
+    </form>
   </body>
 </html>
