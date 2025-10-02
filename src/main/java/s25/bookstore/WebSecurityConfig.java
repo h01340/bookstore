@@ -3,6 +3,8 @@ package s25.bookstore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,10 +29,15 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(
                 authorize -> authorize
                         .requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/restpalvelut/books**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/books/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/books/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/books/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/books/**").hasAuthority("ADMIN")
                         // .requestMatchers(toH2Console()).permitAll() // for h2console
                         .requestMatchers("/h2-console/").permitAll() // for h2console
                         .anyRequest().authenticated())
+                // Käyttää HTTP Basic -autentikointia oletusasetuksilla
+                .httpBasic(Customizer.withDefaults())
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions
                         .disable())) // for h2console
                 .formLogin(formlogin -> formlogin
