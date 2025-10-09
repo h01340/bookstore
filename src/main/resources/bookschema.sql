@@ -15,7 +15,6 @@ VALUES
 ('Fiction');
 
 
-
 CREATE TABLE book (
 id BIGSERIAL PRIMARY KEY,
 title VARCHAR(150),

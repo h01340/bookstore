@@ -1,5 +1,6 @@
 package s25.bookstore.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +15,7 @@ import jakarta.validation.constraints.Size;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "Book's title cannot be empty.")
@@ -26,10 +27,11 @@ public class Book {
     private String author;
 
     @Min(value = 0, message = "Publishing year cannot be negative or null")
+    @Column(name = "publishing_year")
     private Integer yearOfPublish;
 
     @ManyToOne
-    @JoinColumn(name = "categoryid") // categoryid on tietokannassa oleva fk
+    @JoinColumn(name = "category_id") // categoryid on tietokannassa oleva fk
     private Category kategoria;
 
     // constructors for different purposes
