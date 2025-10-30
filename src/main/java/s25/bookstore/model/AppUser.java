@@ -14,11 +14,11 @@ public class AppUser {
     // id, username, passwordHash, role
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private Long id;
 
     // Username with unique constraint
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)

@@ -14,9 +14,9 @@ import s25.bookstore.model.Book;
 import s25.bookstore.model.BookRepository;
 import s25.bookstore.model.CategoryRepository;
 
-@DataJpaTest
-// @SpringBootTest
-// @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//@DataJpaTest
+@SpringBootTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 // // if you are using real db
 public class BookRepositoryTests {
 
