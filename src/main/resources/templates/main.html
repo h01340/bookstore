@@ -6,8 +6,17 @@
   </head>
 
   <body>
-</form>
+<header>
+    <div>
+        <p>Welcome <i><span sec:authentication="name"></span></i></p>
+    </div>
 
+    <div>
+        <form th:action="@{/logout}" method="post" class="logout-form">
+            <input type="submit" value="Sign Out" />
+        </form>
+    </div>
+</header>
     <p>Welcome <i><span sec:authentication="name"></span></i> to book application!</p>
     <p><a href="/booklist">Show all books</a></p>
     <p><a href="/add">Insert a new book</a></p>
