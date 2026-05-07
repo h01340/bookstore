@@ -25,7 +25,7 @@ public class CategoryController {
     @GetMapping("/categorylist")
     public String showCategories(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
-        return "/categorylist";
+        return "categorylist";
     }
 
     @GetMapping("/addCategory")
