@@ -42,7 +42,7 @@ public class BookController {
     public String getAllBooks(Model model) {
         log.info("getAllBooks...");
         model.addAttribute("kirjat", bookRepository.findAll());
-        return "booklist";
+        return "bookList";
     }
 
     // insert new book, first open addBook html page
