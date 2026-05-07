@@ -29,7 +29,7 @@ public class BookstoreApplication {
 			AppUserRepository userRepository) {
 		return (args) -> {
 
-			if (userRepository.findAll() != null) {
+			if (userRepository.count() == 0) {
 				log.info("create application users");
 				userRepository
 						.save(new AppUser("user",
